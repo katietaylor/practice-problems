@@ -35,6 +35,19 @@ def decode(s):
     return word
 
 
+def plaintext(encoded_string):
+    """my original submission to hackbright"""
+    decoded_string = ""
+    skip_index = 0
+
+    while skip_index < len(encoded_string):
+
+        character_index = skip_index + int(encoded_string[skip_index]) + 1
+        decoded_string += encoded_string[character_index]
+        skip_index = character_index + 1
+
+    return decoded_string
+
 if __name__ == '__main__':
     import doctest
     if doctest.testmod().failed == 0:
