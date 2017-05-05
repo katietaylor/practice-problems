@@ -47,12 +47,54 @@ If you receive a string with no brackets, consider it balanced::
 """
 
 
+def has_balanced_brackets1(phrase):
+    """Does a given string have balanced pairs of brackets?
+
+    Given a string as input, return True or False depending on whether the
+    string contains balanced (), {}, [], and/or <>.
+    """
+
+    open_brackets = set(["(", "{", "[", "<"])
+    closed_brackets = {")": "(", "}": "{", "]": "[", ">": "<"}
+
+    brakets_found = []
+
+    for char in phrase:
+        if char in open_brackets:
+            brakets_found.append(char)
+        elif char in closed_brackets:
+            brakets_found.append(closed_brackets[char])
+
+    if brakets_found == brakets_found[::-1] and len(brakets_found) % 2 == 0:
+        return True
+    else:
+        return False
+
+
 def has_balanced_brackets(phrase):
     """Does a given string have balanced pairs of brackets?
 
     Given a string as input, return True or False depending on whether the
     string contains balanced (), {}, [], and/or <>.
     """
+
+    open_brackets = set(["(", "{", "[", "<"])
+    closed_brackets = {")": "(", "}": "{", "]": "[", ">": "<"}
+
+    brackets_seen = []
+
+    for char in phrase:
+        if char in open_brackets:
+            brackets_seen.append(char)
+        elif char in closed_brackets:
+            if not brackets_seen:
+                return False
+            elif brackets_seen[-1] != closed_brackets[char]:
+                return False
+            else:
+                brackets_seen.pop()
+    return brackets_seen == []
+
 
 if __name__ == '__main__':
     import doctest
