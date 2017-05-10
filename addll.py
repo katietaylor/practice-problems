@@ -75,6 +75,22 @@ def add_linked_lists(l1, l2):
     Returns: head node of linked list of sum in "reverse-digit" format.
     """
 
+    value1 = int(l1.as_rev_string())
+    value2 = int(l2.as_rev_string())
+
+    total = str(value1 + value2)
+    total = total[::-1]
+
+    head = Node(int(total[0]))
+    prev = head
+
+    for i in range(1, len(total)):
+        node = Node(int(total[i]))
+        prev.next = node
+        prev = node
+
+    return head
+
 
 if __name__ == '__main__':
     import doctest
