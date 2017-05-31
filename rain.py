@@ -64,6 +64,50 @@ Should also work with floats::
 
 def rain(buildings):
     """How much rain is trapped in Codelandia?"""
+    total_rain = 0
+    left_max = 0
+    right_max = 0
+    prev = None
+    current_puddle = 0
+    puddle_length = 0
+    i = 0
+
+    for building in buildings:
+
+        # handles first value and tallest buildings
+        if building >= left_max:
+            left_max = building
+            right_max = 0
+            puddle_length = 0
+            total_rain += current_puddle
+            current_puddle = 0
+
+        elif building < prev:
+            current_puddle += left_max - building
+            puddle_length += 1
+
+        elif building > prev:
+            current_puddle += left_max - building
+            puddle_length += 1
+            right_max = building
+
+        elif building < right_max:
+            current_puddle -= (left_max - right_max) * (puddle_length - 1)
+            total_rain += current_puddle
+            left_max = building
+            puddle_length = 0
+            right_max = 0
+
+        if i == len(buildings) - 1:
+            if building < prev:
+                break
+            elif building >= right_max:
+                total_rain += current_puddle
+
+        prev = building
+        i += 1
+
+    return total_rain
 
 if __name__ == '__main__':
     import doctest
