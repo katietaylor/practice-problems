@@ -43,8 +43,18 @@ def reverse_linked_list(head):
     '321'
     """
 
+    new_head = None
+    node = head
+
+    while node:
+        new_head = Node(node.data, new_head)
+        node = node.next
+
+    return new_head
 
 if __name__ == '__main__':
     import doctest
     if doctest.testmod().failed == 0:
         print "\n*** ALL TESTS PASSED. RIGHT ON!\n"
+
+
